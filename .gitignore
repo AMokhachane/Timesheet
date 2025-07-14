@@ -1,0 +1,18 @@
+# Backend
+bin/
+obj/
+.vscode/
+*.user
+*.suo
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+# Common
+.env
+*.log
+*.db
+.DS_Store
+Thumbs.db

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.Dtos.Timesheet;
 using API.Mappers;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,15 @@ namespace API.Controllers
             }
 
             return Ok(timesheet.ToTimesheetDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateTimesheetRequestDto timesheetDto)
+        {
+            var timesheetModel = timesheetDto.ToTimesheetFromCreateDTO();
+            _context.Timesheets.Add(timesheetModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = timesheetModel.Id }, timesheetModel.ToTimesheetDto());
         }
     }
 }

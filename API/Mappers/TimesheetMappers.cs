@@ -23,5 +23,19 @@ namespace API.Mappers
                 IsBillable = timesheetModel.IsBillable
             };
         }
+
+         public static Timesheet ToTimesheetFromCreateDTO(this CreateTimesheetRequestDto timesheetDto)
+        {
+            return new Timesheet
+            {
+                UploadDate = timesheetDto.UploadDate,
+                ProjectName = timesheetDto.ProjectName,
+                ClientId = timesheetDto.ClientId,
+                TaskDescription = timesheetDto.TaskDescription,
+                StartTime = timesheetDto.StartTime,
+                EndTime = timesheetDto.EndTime,
+                IsBillable = timesheetDto.IsBillable
+            };
+        }
     }
 }

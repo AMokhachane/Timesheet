@@ -168,3 +168,4 @@ C:\Users\Noma\OneDrive - Thulisile Financial Services CC\Documents\Timesheet Pro
 C:\Users\Noma\OneDrive - Thulisile Financial Services CC\Documents\Timesheet Project\Timesheet\API\obj\Debug\net8.0\API.pdb
 C:\Users\Noma\OneDrive - Thulisile Financial Services CC\Documents\Timesheet Project\Timesheet\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\Noma\OneDrive - Thulisile Financial Services CC\Documents\Timesheet Project\Timesheet\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\Noma\OneDrive - Thulisile Financial Services CC\Documents\Timesheet Project\Timesheet\API\obj\Debug\net8.0\API.sourcelink.json

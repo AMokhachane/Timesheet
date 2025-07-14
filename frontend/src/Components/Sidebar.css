@@ -1,0 +1,9 @@
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 60px); /* Subtract navbar height */
+  background-color: #38393a;
+  position: fixed;
+  top: 60px; /* Push it below the navbar */
+  left: 0;
+}
+

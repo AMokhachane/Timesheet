@@ -5,7 +5,7 @@
 }
 
 .main-content {
-  margin-left: 220px; /* same as sidebar width */
+  margin-left: 270px; /* same as sidebar width */
   width: calc(100% - 220px);
   display: flex;
   flex-direction: column;

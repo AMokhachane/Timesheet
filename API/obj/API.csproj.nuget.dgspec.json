@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\API\\API.csproj": {}
+    "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\API\\API.csproj": {
+    "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\api\\API.csproj",
         "packagesPath": "C:\\Users\\Noma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\API\\obj\\",
+        "outputPath": "C:\\Users\\Noma\\OneDrive - Thulisile Financial Services CC\\Documents\\Timesheet Project\\Timesheet\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Noma\\AppData\\Roaming\\NuGet\\NuGet.Config"

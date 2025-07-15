@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { Sidebar } from './Components/Sidebar';
-import Navbar from './Components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './Components/Register';
 import Login from './Components/Login';
@@ -15,7 +14,6 @@ function App() {
       <div className="App">
         <Sidebar />
         <div className="main-content">
-          <Navbar />
           <div className="page-content">
             <Routes>
               <Route path="/register" element={<Register />} />
@@ -23,7 +21,6 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/clients" element={<Clients />} />
               <Route path="/timesheet" element={<Timesheet />} />
-
             </Routes>
           </div>
         </div>

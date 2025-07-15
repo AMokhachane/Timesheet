@@ -3,11 +3,16 @@ import './Sidebar.css';
 import { NavLink } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import profile from './Images/profile.jpg';
+import tba from './Images/tba.png';
 
 export const Sidebar = () => {
   return (
     <div className="sidebar">
-      <h2 className="sidebar-title">Nerdy</h2>
+       <img
+              src={tba}
+              alt="Logo"
+              className="sidebar-logo"
+            />
 
        <div className="sidebar-search">
           <div className="search-input-wrapper">

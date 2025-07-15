@@ -10,11 +10,12 @@
   left: 0;
 }
 
-.sidebar-title {
-  font-size: 35px;
-  margin: 5px 0 20px 5px; /* top right bottom left */
-  text-align: left;
-  color: #f8f9fa;
+.sidebar-logo {
+  width: 180px;              /* Increase width */
+  height: auto;
+  margin: 10px 0 20px 5px;
+  transform: scale(1.2);     /* Zoom in by 20% */
+  transform-origin: top left;
 }
 
 .sidebar-search {

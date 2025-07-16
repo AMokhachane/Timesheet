@@ -42,58 +42,31 @@ const Register = () => {
   };
 
   return (
-    <div className={RegisterCSS['register-container']}>
-      <div className={RegisterCSS['wrapper']}>
-        <div className={RegisterCSS['form-container']}>
-          <form onSubmit={handleRegister} className={RegisterCSS['register-form']}>
-            <h1>Register Profile</h1>
-            {error && <div className={RegisterCSS['error']}>{error}</div>}
-            <div className={RegisterCSS['form-group']}>
-              <label>Full Name</label>
-              <input
-                type="text"
-                placeholder="Enter Name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                required
-              />
-            </div>
-            <div className={RegisterCSS['form-group']}>
-              <label>Email Address</label>
-              <input
-                type="email"
-                placeholder="Enter Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className={RegisterCSS['form-group']}>
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <div className={RegisterCSS['form-group']}>
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className={RegisterCSS['register-btn']}>Register</button>
-          </form>
+  <div className={RegisterCSS['register-wrapper']}>
+    <div className={RegisterCSS['left-panel']}>
+  <h2>Welcome to SmartLog</h2>
+  <p>Already have an account? Please log in to continue managing your time and clients efficiently.</p>
+  <button onClick={() => navigate('/login')}>Login</button>
+</div>
+    <div className={RegisterCSS['right-panel']}>
+      <form onSubmit={handleRegister} className={RegisterCSS['register-form']}>
+        <h2>Create Account</h2>
+        {error && <div className={RegisterCSS['error']}>{error}</div>}
+        <input type="text" placeholder="Fullname" value={fullName} onChange={(e) => setFullName(e.target.value)} required />
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        <button type="submit">Register</button>
+        <p className={RegisterCSS['social-login-text']}>or use your account</p>
+        <div className={RegisterCSS['social-icons']}>
+          <i className="fab fa-facebook-f"></i>
+          <i className="fab fa-google"></i>
+          <i className="fab fa-linkedin-in"></i>
         </div>
-      </div>
+      </form>
     </div>
-  );
+  </div>
+);
 };
 
 export default Register;

@@ -6,9 +6,15 @@
 
 .main-content {
   margin-left: 270px;
-  width: calc(100% - 270px); /* match the sidebar */
+  width: calc(100% - 270px);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
 
+.full-width {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}

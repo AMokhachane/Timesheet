@@ -1,25 +1,31 @@
 import React from 'react';
 import './Sidebar.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import profile from './Images/profile.jpg';
 import tba from './Images/tba.png';
 
 export const Sidebar = () => {
+  const location = useLocation();
+
+  // Define routes where the sidebar should be hidden
+  const hideSidebarRoutes = ['/login', '/register'];
+  const isVisible = !hideSidebarRoutes.includes(location.pathname);
+
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     <div className="sidebar">
-       <img
-              src={tba}
-              alt="Logo"
-              className="sidebar-logo"
-            />
+      <img src={tba} alt="Logo" className="sidebar-logo" />
 
-       <div className="sidebar-search">
-          <div className="search-input-wrapper">
-            <i className="fas fa-search search-icon"></i>
-            <input type="text" placeholder="Search..." />
-          </div>
-       </div>
+      <div className="sidebar-search">
+        <div className="search-input-wrapper">
+          <i className="fas fa-search search-icon"></i>
+          <input type="text" placeholder="Search..." />
+        </div>
+      </div>
 
       <nav className="sidebar-nav">
         <NavLink to="/" className="sidebar-link" activeclassname="active">
@@ -41,11 +47,7 @@ export const Sidebar = () => {
 
       <div className="sidebar-profile-wrapper">
         <div className="sidebar-profile">
-            <img
-              src={profile}
-              alt="Profile"
-              className="profile-pic"
-            />
+          <img src={profile} alt="Profile" className="profile-pic" />
           <div className="profile-info">
             <span className="profile-name">Amanda Mokhachane</span>
             <button className="profile-options-btn">

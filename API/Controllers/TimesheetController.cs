@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Dtos.Timesheet;
+using API.Interfaces;
 using API.Mappers;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -15,23 +17,27 @@ namespace API.Controllers
     public class TimesheetController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
-        public TimesheetController(ApplicationDBContext context)
+        private readonly ITimesheetRepository _timesheetRepo;
+        public TimesheetController(ApplicationDBContext context, ITimesheetRepository timesheetRepo)
         {
+            _timesheetRepo = timesheetRepo;
             _context = context;
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var timesheets = _context.Timesheets.ToList()
-            .Select(s => s.ToTimesheetDto());
+            var timesheets = await _timesheetRepo.GetAllAsync();
+        
+            var timesheetDto = timesheets.Select(s => s.ToTimesheetDto());
+
             return Ok(timesheets);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var timesheet = _context.Timesheets.Find(id);
+            var timesheet = await _timesheetRepo.GetByIdAsync(id);
 
             if (timesheet == null)
             {
@@ -42,11 +48,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateTimesheetRequestDto timesheetDto)
+        public async Task<IActionResult> Create([FromBody] CreateTimesheetRequestDto timesheetDto)
         {
             var timesheetModel = timesheetDto.ToTimesheetFromCreateDTO();
-            _context.Timesheets.Add(timesheetModel);
-            _context.SaveChanges();
+            await _timesheetRepo.CreateAsync(timesheetModel);
             return CreatedAtAction(nameof(GetById), new { id = timesheetModel.Id }, timesheetModel.ToTimesheetDto());
         }
     }

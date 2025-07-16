@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Dtos.Client;
+using API.Interfaces;
 using API.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -14,25 +16,28 @@ namespace API.Controllers
     public class ClientController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
-        public ClientController(ApplicationDBContext context)
+        private readonly IClientRepository _clientRepo;
+        public ClientController(ApplicationDBContext context, IClientRepository clientRepo)
         {
+            _clientRepo = clientRepo;
             _context = context;
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var clients = _context.Clients.ToList()
-            .Select(s => s.ToClientDto());
+            var clients = await _clientRepo.GetAllAsync();
+
+            var clientDto = clients.Select(s => s.ToClientDto());
 
             return Ok(clients);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
 
-        public IActionResult GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var client = _context.Clients.Find(id);
+            var client = await _clientRepo.GetByIdAsync(id);
 
             if (client == null)
             {
@@ -43,12 +48,38 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateClientRequestDto clientDto)
+        public async Task<IActionResult> Create([FromBody] CreateClientRequestDto clientDto)
         {
             var clientModel = clientDto.ToClientFromCreateDTO();
-            _context.Clients.Add(clientModel);
-            _context.SaveChanges();
+            await _clientRepo.CreateAsync(clientModel);
             return CreatedAtAction(nameof(GetById), new { id = clientModel.Id }, clientModel.ToClientDto());
+        }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateClientRequestDto updateDto)
+        {
+            var clientModel = await _clientRepo.UpdateAsync(id, updateDto);
+
+            if (clientModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(clientModel.ToClientDto());
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var clientModel = await _clientRepo.DeleteAsync(id);
+            if (clientModel == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
     }
 }

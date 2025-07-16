@@ -1,5 +1,7 @@
 using API.Data;
+using API.Interfaces;
 using API.Models;
+using API.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,9 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<ITimesheetRepository, TimesheetRepository>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {

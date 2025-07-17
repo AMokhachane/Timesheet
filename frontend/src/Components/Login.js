@@ -6,13 +6,11 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Simulate login
     if (email === 'admin@example.com' && password === 'password123') {
       console.log('Logged in successfully');
       navigate('/');
@@ -22,32 +20,35 @@ const Login = () => {
   };
 
   return (
-    <div className={LoginCSS['login-container']}>
-      <div className={LoginCSS['wrapper']}>
+    <div className={LoginCSS['container']}>
+      <div className={LoginCSS['left-panel']}>
+        <h2>Welcome back to SmartLog</h2>
+        <p>Don't have an account yet? Register now to start tracking your time and managing clients effortlessly.</p>
+        <button onClick={() => navigate('/register')}>Register</button>
+      </div>
+      <div className={LoginCSS['right-panel']}>
         <form onSubmit={handleLogin} className={LoginCSS['login-form']}>
-          <h1>Login</h1>
+          <h2>Sign in</h2>
           {error && <div className={LoginCSS['error']}>{error}</div>}
-          <div className={LoginCSS['form-group']}>
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className={LoginCSS['form-group']}>
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className={LoginCSS['login-btn']}>Login</button>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+           {/* Forgot Password Link */}
+    <div className={LoginCSS['forgot-password']}>
+      <a href="/forgot-password">Forgot password?</a>
+    </div>
+          <button type="submit">Login</button>
         </form>
       </div>
     </div>

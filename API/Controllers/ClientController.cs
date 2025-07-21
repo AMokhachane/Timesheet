@@ -25,7 +25,6 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var clients = await _clientRepo.GetAllAsync();

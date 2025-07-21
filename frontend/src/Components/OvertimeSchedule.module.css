@@ -1,0 +1,63 @@
+.overtime-container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.overtime-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.overtime-form input,
+.overtime-form textarea {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.overtime-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.overtime-form button {
+  background-color: #25a372;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.overtime-form button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.overtime-form button:hover:not(:disabled) {
+  background-color: #1c7a54;
+}
+
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.requests-table th,
+.requests-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.requests-table th {
+  background-color: #25a372;
+  color: white;
+}

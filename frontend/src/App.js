@@ -7,6 +7,8 @@ import Login from './Components/Login';
 import Dashboard from './Components/Dashboard';
 import Clients from './Components/Clients';
 import Timesheet from './Components/Timesheet';
+import CommunicationLog from './Components/CommunicationLog';
+import OvertimeSchedule from './Components/OvertimeSchedule';
 
 function AppContent() {
   const location = useLocation();
@@ -24,6 +26,8 @@ function AppContent() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/clients" element={<Clients />} />
             <Route path="/timesheet" element={<Timesheet />} />
+            <Route path="/communication-log" element={<CommunicationLog />} />
+            <Route path="/overtime" element={<OvertimeSchedule />} />
           </Routes>
         </div>
       </div>

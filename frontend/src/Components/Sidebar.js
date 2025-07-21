@@ -3,7 +3,6 @@ import './Sidebar.css';
 import { NavLink, useLocation } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import profile from './Images/profile.jpg';
-import tba from './Images/tba.png';
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -18,7 +17,7 @@ export const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <img src={tba} alt="Logo" className="sidebar-logo" />
+      <h1 className="sidebar-title">SmartLog</h1>
 
       <div className="sidebar-search">
         <div className="search-input-wrapper">
@@ -37,12 +36,18 @@ export const Sidebar = () => {
         <NavLink to="/timesheet" className="sidebar-link" activeclassname="active">
           <i className="fas fa-clock icon-left"></i> Timesheet
         </NavLink>
+        <NavLink to="/communication-log" className="sidebar-link" activeclassname="active">
+          <i className="fas fa-comments icon-left"></i> Communication Log
+        </NavLink>
+        <NavLink to="/overtime" className="sidebar-link" activeclassname="active">
+          <i className="fas fa-comments icon-left"></i> Overtime Schedule
+        </NavLink>
         <NavLink to="/register" className="sidebar-link" activeclassname="active">
           <i className="fas fa-user-plus icon-left"></i> Register
         </NavLink>
         <NavLink to="/login" className="sidebar-link" activeclassname="active">
           <i className="fas fa-sign-in-alt icon-left"></i> Login
-        </NavLink>
+        </NavLink>  
       </nav>
 
       <div className="sidebar-profile-wrapper">

@@ -12,7 +12,7 @@ import OvertimeSchedule from './Components/OvertimeSchedule';
 
 function AppContent() {
   const location = useLocation();
-  const noSidebarPaths = ['/login', '/register'];
+  const noSidebarPaths = ['/', '/register'];
   const isNoSidebar = noSidebarPaths.includes(location.pathname);
 
   return (
@@ -22,8 +22,8 @@ function AppContent() {
         <div className="page-content">
           <Routes>
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/dash" element={<Dashboard />} />
             <Route path="/clients" element={<Clients />} />
             <Route path="/timesheet" element={<Timesheet />} />
             <Route path="/communication-log" element={<CommunicationLog />} />

@@ -70,7 +70,7 @@ const Clients = () => {
       <form onSubmit={handleAddClient} className={ClientsCSS['client-form']}>
         <input
           type="text"
-          placeholder="Client Name"
+          placeholder="Company Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -106,7 +106,7 @@ const Clients = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Client Name</th>
+            <th>Company Name</th>
             <th>Contact Person</th>
             <th>Email</th>
             <th>Phone Number</th>

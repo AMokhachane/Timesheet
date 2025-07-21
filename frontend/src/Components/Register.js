@@ -66,7 +66,7 @@ const Register = () => {
       <div className={RegisterCSS['left-panel']}>
         <h2>Welcome to SmartLog</h2>
         <p>Already have an account? Please log in to continue managing your time and clients efficiently.</p>
-        <button onClick={() => navigate('/login')}>Login</button>
+        <button onClick={() => navigate('/')}>Login</button>
       </div>
       
       <div className={RegisterCSS['right-panel']}>

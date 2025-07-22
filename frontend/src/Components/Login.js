@@ -4,7 +4,7 @@ import LoginCSS from './Login.module.css';
 import axios from 'axios';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:5282/api/account/login', {
-        username: username.toLowerCase(), // backend expects username lowercase
+        email: email.trim(),  // send trimmed email
         password: password
       });
 
@@ -23,13 +23,13 @@ const Login = () => {
 
       localStorage.setItem('token', response.data.token);
 
-      navigate('/');
+      navigate('/dash');
 
     } catch (err) {
       console.error('Login failed:', err);
 
       if (err.response?.status === 401) {
-        setError('Invalid username or password');
+        setError('Invalid email or password');
       } else {
         setError('Login failed. Please try again.');
       }
@@ -48,10 +48,10 @@ const Login = () => {
           <h2>Sign in</h2>
           {error && <div className={LoginCSS['error']}>{error}</div>}
           <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input

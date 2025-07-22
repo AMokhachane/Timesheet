@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using API.Dtos.Account;
 using API.Interfaces;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace API.Controllers
 {
@@ -26,22 +29,24 @@ namespace API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
-        {
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
-            if (user == null) return Unauthorized("Invalid Username!");
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
-            if (!result.Succeeded) return Unauthorized("Username not found and/or Password incorrect");
+public async Task<IActionResult> Login(LoginDto loginDto)
+{
+    var user = await _userManager.FindByEmailAsync(loginDto.Email);
+    if (user == null) return Unauthorized("Invalid Email!");
 
-            return Ok(
-                new NewUserDto
-                {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
-                }
-            );
+    var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+    if (!result.Succeeded) return Unauthorized("Email or Password incorrect");
+
+    return Ok(
+        new NewUserDto
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Token = _tokenService.CreateToken(user)
         }
+    );
+}
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -89,5 +94,22 @@ namespace API.Controllers
             }
         }
         
+[Authorize]
+[HttpGet("current-user")]
+public async Task<ActionResult<UserDto>> GetCurrentUser()
+{
+    var email = User.FindFirstValue(ClaimTypes.Email);
+    if (email == null) return Unauthorized("User email not found in token.");
+
+    var user = await _userManager.FindByEmailAsync(email);
+    if (user == null) return Unauthorized("User not found.");
+
+    return new UserDto
+    {
+        Username = user.UserName,
+        Email = user.Email,
+        
+    };
+}
     }
 }

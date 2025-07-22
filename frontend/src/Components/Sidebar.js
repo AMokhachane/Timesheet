@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
 import { NavLink, useLocation } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import profile from './Images/profile.jpg';
+import axios from 'axios';
 
 export const Sidebar = () => {
   const location = useLocation();
+  const [user, setUser] = useState(null);
 
-  // Define routes where the sidebar should be hidden
   const hideSidebarRoutes = ['/login', '/register'];
   const isVisible = !hideSidebarRoutes.includes(location.pathname);
 
-  if (!isVisible) {
-    return null;
-  }
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const response = await axios.get('http://localhost:5282/api/account/current-user', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setUser(response.data);
+      } catch (error) {
+        console.error("Failed to fetch user", error);
+        setUser(null); // clear user if error occurs
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  if (!isVisible) return null;
 
   return (
     <div className="sidebar">
@@ -27,7 +48,7 @@ export const Sidebar = () => {
       </div>
 
       <nav className="sidebar-nav">
-        <NavLink to="/" className="sidebar-link" activeclassname="active">
+        <NavLink to="/dash" className="sidebar-link" activeclassname="active">
           <i className="fas fa-home icon-left"></i> Dashboard
         </NavLink>
         <NavLink to="/clients" className="sidebar-link" activeclassname="active">
@@ -45,7 +66,7 @@ export const Sidebar = () => {
         <NavLink to="/register" className="sidebar-link" activeclassname="active">
           <i className="fas fa-user-plus icon-left"></i> Register
         </NavLink>
-        <NavLink to="/login" className="sidebar-link" activeclassname="active">
+        <NavLink to="/" className="sidebar-link" activeclassname="active">
           <i className="fas fa-sign-in-alt icon-left"></i> Login
         </NavLink>  
       </nav>
@@ -54,7 +75,11 @@ export const Sidebar = () => {
         <div className="sidebar-profile">
           <img src={profile} alt="Profile" className="profile-pic" />
           <div className="profile-info">
-            <span className="profile-name">Amanda Mokhachane</span>
+            <span className="profile-name">
+              {user
+                ? `${user.firstName || user.username} ${user.lastName || ''}`.trim()
+                : "Loading..."}
+            </span>
             <button className="profile-options-btn">
               <i className="fas fa-ellipsis-v"></i>
             </button>

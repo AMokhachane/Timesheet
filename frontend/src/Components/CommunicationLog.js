@@ -8,11 +8,13 @@ const CommunicationLog = () => {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
-    axios.get('http://localhost:5282/api/client')
+    axios.get(`${API_URL}/api/client`)
       .then(response => setClients(response.data))
       .catch(error => console.error('Error fetching clients:', error));
-  }, []);
+  }, [API_URL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const CommunicationLog = () => {
     };
 
     try {
-      await axios.post('http://localhost:5282/api/communicationlog', data);
+      await axios.post(`${API_URL}/api/communicationlog`, data);
       alert('Communication saved!');
       setMessage('');
       setSelectedClientId('');

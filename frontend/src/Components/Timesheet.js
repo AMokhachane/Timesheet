@@ -22,7 +22,7 @@ const Timesheet = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     axios
-      .get('http://localhost:5282/api/client', {
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/client`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setClients(res.data))
@@ -64,7 +64,7 @@ const Timesheet = () => {
       };
 
       const response = await axios.post(
-        'http://localhost:5282/api/timesheet',
+        `${process.env.REACT_APP_API_BASE_URL}/api/timesheet`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },

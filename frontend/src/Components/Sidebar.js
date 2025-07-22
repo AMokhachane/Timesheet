@@ -18,7 +18,7 @@ export const Sidebar = () => {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const response = await axios.get('http://localhost:5282/api/account/current-user', {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/account/current-user`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

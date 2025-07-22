@@ -11,11 +11,13 @@ const Clients = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     setLoading(true);
     axios
-      .get('http://localhost:5282/api/client', {
+      .get(`${API_BASE_URL}/api/client`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -27,7 +29,7 @@ const Clients = () => {
         setLoading(false);
         console.error(err);
       });
-  }, []);
+  }, [API_BASE_URL]);
 
   const handleAddClient = async (e) => {
     e.preventDefault();
@@ -36,20 +38,11 @@ const Clients = () => {
     const token = localStorage.getItem('token');
 
     try {
-      const payload = {
-        name,
-        contactPerson,
-        email,
-        phoneNumber,
-      };
+      const payload = { name, contactPerson, email, phoneNumber };
 
-      const response = await axios.post(
-        'http://localhost:5282/api/client',
-        payload,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL}/api/client`, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       setClients([...clients, response.data]);
       setName('');

@@ -38,11 +38,14 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5282/api/account/register', {
-        username: fullName,
-        email: email,
-        password: password
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/account/register`,
+        {
+          username: fullName,
+          email: email,
+          password: password,
+        }
+      );
 
       console.log('Registration successful:', response.data);
 
@@ -101,8 +104,9 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="fullname">Email</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -111,8 +115,9 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="fullname">Password</label>
+            <label htmlFor="password">Password</label>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -121,8 +126,9 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="fullname">Confirm Password</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <input
+              id="confirmPassword"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}

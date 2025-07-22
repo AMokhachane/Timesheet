@@ -14,17 +14,19 @@ const Login = () => {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:5282/api/account/login', {
-        email: email.trim(),  // send trimmed email
-        password: password
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/account/login`,
+        {
+          email: email.trim(),  // send trimmed email
+          password: password,
+        }
+      );
 
       console.log('Login successful:', response.data);
 
       localStorage.setItem('token', response.data.token);
 
       navigate('/dash');
-
     } catch (err) {
       console.error('Login failed:', err);
 
@@ -40,7 +42,9 @@ const Login = () => {
     <div className={LoginCSS['container']}>
       <div className={LoginCSS['left-panel']}>
         <h2>Welcome back to SmartLog</h2>
-        <p>Don't have an account yet? Register now to start tracking your time and managing clients effortlessly.</p>
+        <p>
+          Don't have an account yet? Register now to start tracking your time and managing clients effortlessly.
+        </p>
         <button onClick={() => navigate('/register')}>Register</button>
       </div>
       <div className={LoginCSS['right-panel']}>

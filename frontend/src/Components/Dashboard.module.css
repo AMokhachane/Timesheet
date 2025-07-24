@@ -82,7 +82,7 @@
 
 .birthdayCard {
   flex: 1;
-  background: #fff;
+  background: #e3eefa;
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -95,7 +95,7 @@
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
-  color: #e57373;
+  color: #25a372;
   font-size: 1.1rem;
 }
 
@@ -103,6 +103,11 @@
   list-style: none;
   padding-left: 0;
   color: #555;
+}
+.birthdayCard p {
+  list-style: none;
+  padding-left: 0;
+  color: #25a372;
 }
 
 .birthdayCard li {

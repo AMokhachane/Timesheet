@@ -11,6 +11,79 @@
   margin-bottom: 1.5rem;
 }
 
+.add-client-btn {
+  background-color: #25a372;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-left: 865px;
+  transition: background-color 0.3s ease;
+}
+
+.add-client-btn:hover {
+  background-color: #1e8c60;
+}
+
+.filters-container {
+  display: flex;
+  justify-content: flex-start; /* aligns left */
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Style for the search wrapper (with icon) */
+.search-wrapper {
+  position: relative;
+  width: 300px;
+  max-width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #25a372;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.search-input {
+  padding-left: 35px; /* space for icon */
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  height: 38px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #25a372;
+}
+
+/* Style for filter dropdown separately */
+.filter-select {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 200px; /* smaller width to separate it visually */
+  max-width: 100%;
+  outline: none;
+}
+
+.filter-select:focus {
+  border-color: #25a372;
+}
+
+
 .client-form {
   display: flex;
   flex-wrap: wrap;
@@ -18,13 +91,22 @@
   margin-bottom: 2rem;
 }
 
-.client-form input {
+.client-form input,
+.client-form select {
   padding: 12px 15px;
   border: 1px solid #124b1c;
   border-radius: 10px;
   outline: none;
   width: 300px;
   font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.client-form select:focus,
+.client-form input:focus {
+  border-color: #25a372;
 }
 
 .client-form button {
@@ -68,3 +150,88 @@
   color: red;
   margin-bottom: 1rem;
 }
+
+.action-btn {
+  background-color: transparent;
+  color: #124b1c;
+  border: 1px solid #124b1c;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.action-btn:hover {
+  background-color: #cce5d2;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #999;
+}
+
+.action-btn {
+  background-color: #25a372;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+  background-color: #bfcfc9;
+}
+
+.action-btn {
+  background: #1e8c60;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  position: relative;
+}
+
+.action-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #1e8c60;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.action-menu-item {
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.action-menu-item:hover {
+  background-color: #eee;
+}
+

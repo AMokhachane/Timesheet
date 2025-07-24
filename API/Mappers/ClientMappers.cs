@@ -14,10 +14,13 @@ namespace API.Mappers
             return new ClientDto
             {
                 Id = clientModel.Id,
-                Name = clientModel.Name,
-                ContactPerson = clientModel.ContactPerson,
+                CompanyName = clientModel.CompanyName,
+                FirstName = clientModel.FirstName,
+                LastName = clientModel.LastName,
+                IdNumber = clientModel.IdNumber,
                 Email = clientModel.Email,
-                PhoneNumber = clientModel.PhoneNumber
+                PhoneNumber = clientModel.PhoneNumber,
+                ClientAllocation = clientModel.ClientAllocation
             };
         }
 
@@ -25,10 +28,14 @@ namespace API.Mappers
         {
             return new Client
             {
-                Name = clientDto.Name,
-                ContactPerson = clientDto.ContactPerson,
+                CompanyName = clientDto.CompanyName,
+                FirstName = clientDto.FirstName,
+                LastName = clientDto.LastName,
+                IdNumber = clientDto.IdNumber,
                 Email = clientDto.Email,
-                PhoneNumber = clientDto.PhoneNumber
+                PhoneNumber = clientDto.PhoneNumber,
+                ClientAllocation = clientDto.ClientAllocation
+
             };
         }
     }

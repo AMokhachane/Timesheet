@@ -85,9 +85,9 @@
 }
 
 .sidebar-profile-wrapper {
-  margin-bottom: 70px;
-  border-top: 1px solid #dce9f3;
-  padding-top: 20px;
+  margin-bottom: 30px;
+  border-top: 1px solid #25a372;
+  
 }
 
 .sidebar-profile {
@@ -123,3 +123,12 @@
   color: #25a372;
   font-size: 1rem;
 }
+
+.Log-pic {
+  width: 120px;         /* adjust to fit your design */
+  display: block;       /* ensures margin auto works */
+  margin-bottom: 20px;
+ 
+}
+
+

@@ -12,22 +12,60 @@ const Timesheet = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [isBillable, setIsBillable] = useState(false);
+  const today = new Date().toISOString().split('T')[0]; // format: YYYY-MM-DD
 
-  // 👇 Define missing helper function
+
+  const token = localStorage.getItem('token');
+
+  // Format time helper
   const formatTimeWithSeconds = (time) => {
     return time.length === 5 ? `${time}:00` : time;
   };
 
-  // Load clients on mount
+  // Fetch clients and timesheets on mount
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    // Fetch clients
     axios
       .get(`${process.env.REACT_APP_API_BASE_URL}/api/client`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setClients(res.data))
       .catch((err) => console.error('Error fetching clients:', err));
-  }, []);
+
+    // Fetch timesheets
+    axios
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/timesheet`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        // Map timesheets to entries format expected
+        const mappedEntries = res.data.map((entry) => {
+          // Find client name for this entry
+          const clientName = clients.find((c) => c.id === entry.clientId)?.companyName || '';
+
+          // Calculate total hours
+          const start = new Date(`1970-01-01T${formatTimeWithSeconds(entry.startTime)}`);
+          const end = new Date(`1970-01-01T${formatTimeWithSeconds(entry.endTime)}`);
+          let diffHours = (end - start) / (1000 * 60 * 60);
+          if (diffHours < 0) diffHours = 0;
+
+          return {
+            id: entry.id,
+            date: entry.uploadDate,
+            client: clientName,
+            projectName: entry.projectName,
+            taskDescription: entry.taskDescription,
+            startTime: entry.startTime,
+            endTime: entry.endTime,
+            isBillable: entry.isBillable,
+            totalHours: parseFloat(diffHours.toFixed(2)),
+          };
+        });
+
+        setEntries(mappedEntries);
+      })
+      .catch((err) => console.error('Error fetching timesheets:', err));
+  }, [token, clients]);
 
   const handleAddEntry = async (e) => {
     e.preventDefault();
@@ -49,8 +87,6 @@ const Timesheet = () => {
     const end = new Date(`1970-01-01T${formattedEnd}`);
     let diffHours = (end - start) / (1000 * 60 * 60);
     if (diffHours < 0) diffHours = 0;
-
-    const token = localStorage.getItem('token');
 
     try {
       const payload = {
@@ -74,7 +110,7 @@ const Timesheet = () => {
       const savedEntry = response.data;
 
       const clientName =
-        clients.find((c) => c.id === savedEntry.clientId)?.name || '';
+        clients.find((c) => c.id === savedEntry.clientId)?.companyName || '';
 
       setEntries([
         ...entries,
@@ -129,7 +165,7 @@ const Timesheet = () => {
           </option>
           {clients.map((client) => (
             <option key={client.id} value={client.id}>
-              {client.name}
+              {client.companyName}
             </option>
           ))}
         </select>
@@ -170,6 +206,8 @@ const Timesheet = () => {
         </label>
         <button type="submit">Add Entry</button>
       </form>
+
+      <p className={TimesheetCSS['today-date']}>Today: {today}</p>
 
       <table className={TimesheetCSS['entries-table']}>
         <thead>

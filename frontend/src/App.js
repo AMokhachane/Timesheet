@@ -9,6 +9,7 @@ import Clients from './Components/Clients';
 import Timesheet from './Components/Timesheet';
 import CommunicationLog from './Components/CommunicationLog';
 import OvertimeSchedule from './Components/OvertimeSchedule';
+import LeaveRequest from './Components/LeaveRequest';
 
 function AppContent() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function AppContent() {
             <Route path="/timesheet" element={<Timesheet />} />
             <Route path="/communication-log" element={<CommunicationLog />} />
             <Route path="/overtime" element={<OvertimeSchedule />} />
+            <Route path="/leave" element={<LeaveRequest />} />
           </Routes>
         </div>
       </div>

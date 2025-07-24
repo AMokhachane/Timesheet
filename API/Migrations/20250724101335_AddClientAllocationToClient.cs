@@ -7,7 +7,7 @@
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddFirstNameLastNameRoleToUser : Migration
+    public partial class AddClientAllocationToClient : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,30 +15,16 @@ namespace API.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "335756ba-1ab4-4c6f-b5e1-e9b7841b2dce");
+                keyValue: "14ce6d9a-5cd3-4a2d-bc5d-0cdcf9071d10");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "ad31da34-fd6f-4815-950f-89ca209ddd1a");
+                keyValue: "30958f9d-d5ed-426d-b10f-feaca9b2bb4b");
 
             migrationBuilder.AddColumn<string>(
-                name: "FirstName",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "LastName",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Role",
-                table: "AspNetUsers",
+                name: "ClientAllocation",
+                table: "Clients",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
@@ -48,8 +34,8 @@ namespace API.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3c49aff6-368e-4db5-9ff5-c2e29f7f3b07", null, "Admin", "ADMIN" },
-                    { "c97fff2b-e52c-4a74-98f6-a1637cb3bcb5", null, "User", "USER" }
+                    { "0c9f8851-5393-48df-bc75-c8f9a909584a", null, "User", "USER" },
+                    { "eafb1381-1a86-4281-af41-14d33fa228e3", null, "Admin", "ADMIN" }
                 });
         }
 
@@ -59,32 +45,24 @@ namespace API.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "3c49aff6-368e-4db5-9ff5-c2e29f7f3b07");
+                keyValue: "0c9f8851-5393-48df-bc75-c8f9a909584a");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "c97fff2b-e52c-4a74-98f6-a1637cb3bcb5");
+                keyValue: "eafb1381-1a86-4281-af41-14d33fa228e3");
 
             migrationBuilder.DropColumn(
-                name: "FirstName",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "LastName",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Role",
-                table: "AspNetUsers");
+                name: "ClientAllocation",
+                table: "Clients");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "335756ba-1ab4-4c6f-b5e1-e9b7841b2dce", null, "User", "USER" },
-                    { "ad31da34-fd6f-4815-950f-89ca209ddd1a", null, "Admin", "ADMIN" }
+                    { "14ce6d9a-5cd3-4a2d-bc5d-0cdcf9071d10", null, "User", "USER" },
+                    { "30958f9d-d5ed-426d-b10f-feaca9b2bb4b", null, "Admin", "ADMIN" }
                 });
         }
     }

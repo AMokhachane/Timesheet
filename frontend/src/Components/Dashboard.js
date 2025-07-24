@@ -53,17 +53,18 @@ const Dashboard = () => {
       </header>
 
       <section className={styles.tilesRow}>
-        <InfoTile color="#f06292" label="Revenue Status" value="$432" icon={<FaDollarSign size={20} />} />
-        <InfoTile color="#9575cd" label="Page Views" value="1,203" icon={<FaEye size={20} />} />
-        <InfoTile color="#4fc3f7" label="Bounce Rate" value="43%" icon={<FaChartLine size={20} />} />
+        <InfoTile color="#f06292" label="Number of Staff" value="13" icon={<FaUsers size={20} />} />
+        <InfoTile color="#9575cd" label="Number of Clients" value="1022" icon={<FaUsers size={20} />} />
+        <InfoTile color="#4fc3f7" label="Rate of New Clients" value="13%" icon={<FaChartLine size={20} />} />
       </section>
 
       <section className={styles.chartBirthdaySection}>
         <div className={styles.birthdayCard}>
-          <h3><FaBirthdayCake /> Monthly Birthdays</h3>
+          <h3><FaBirthdayCake /> This month Birthdays</h3>
+          <p>Let’s wish a happy birthday to these clients:</p>
           <ul>
             {birthdays.map((name, i) => (
-              <li key={i}>🎂 {name}</li>
+              <li key={i}> {name}</li>
             ))}
           </ul>
         </div>

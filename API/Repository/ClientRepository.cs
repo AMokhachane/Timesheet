@@ -56,10 +56,13 @@ namespace API.Repository
                 return null;
             }
 
-            existingClient.Name = clientDto.Name;
-            existingClient.ContactPerson = clientDto.ContactPerson;
+            existingClient.CompanyName = clientDto.CompanyName;
+            existingClient.FirstName = clientDto.FirstName;
+            existingClient.LastName = clientDto.LastName;
+            existingClient.IdNumber = clientDto.IdNumber;
             existingClient.Email = clientDto.Email;
             existingClient.PhoneNumber = clientDto.PhoneNumber;
+            existingClient.ClientAllocation = clientDto.ClientAllocation;
 
             await _context.SaveChangesAsync();
             return existingClient;

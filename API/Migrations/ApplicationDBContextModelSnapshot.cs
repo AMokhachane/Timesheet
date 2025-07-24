@@ -107,7 +107,11 @@ namespace API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ContactPerson")
+                    b.Property<string>("ClientAllocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -115,7 +119,15 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -195,13 +207,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3c49aff6-368e-4db5-9ff5-c2e29f7f3b07",
+                            Id = "eafb1381-1a86-4281-af41-14d33fa228e3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c97fff2b-e52c-4a74-98f6-a1637cb3bcb5",
+                            Id = "0c9f8851-5393-48df-bc75-c8f9a909584a",
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
 import { NavLink, useLocation } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import profile from './Images/profile.jpg';
+import pic from './Images/pic.jpg';
 import axios from 'axios';
+import log from './Images/log.png';
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -38,15 +39,7 @@ export const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <h1 className="sidebar-title">SmartLog</h1>
-
-      <div className="sidebar-search">
-        <div className="search-input-wrapper">
-          <i className="fas fa-search search-icon"></i>
-          <input type="text" placeholder="Search..." />
-        </div>
-      </div>
-
+        <img src={log} alt="Log" className="Log-pic" />
       <nav className="sidebar-nav">
         <NavLink to="/dash" className="sidebar-link" activeclassname="active">
           <i className="fas fa-home icon-left"></i> Dashboard
@@ -63,17 +56,14 @@ export const Sidebar = () => {
         <NavLink to="/overtime" className="sidebar-link" activeclassname="active">
           <i className="fas fa-comments icon-left"></i> Overtime Schedule
         </NavLink>
-        <NavLink to="/register" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-user-plus icon-left"></i> Register
-        </NavLink>
-        <NavLink to="/" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-sign-in-alt icon-left"></i> Login
-        </NavLink>  
+        <NavLink to="/leave" className="sidebar-link" activeclassname="active">
+          <i className="fas fa-comments icon-left"></i> Leave Request
+        </NavLink> 
       </nav>
 
       <div className="sidebar-profile-wrapper">
         <div className="sidebar-profile">
-          <img src={profile} alt="Profile" className="profile-pic" />
+          <img src={pic} alt="Profile" className="profile-pic" />
           <div className="profile-info">
             <span className="profile-name">
               {user

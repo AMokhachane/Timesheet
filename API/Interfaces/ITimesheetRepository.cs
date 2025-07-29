@@ -11,5 +11,7 @@ namespace API.Interfaces
         Task<List<Timesheet>> GetAllAsync();
         Task<Timesheet?> GetByIdAsync(int id);
         Task<Timesheet> CreateAsync(Timesheet timesheetModel);
+        Task<List<Timesheet>> GetByUserIdAsync(string userId);
+
     }
 }

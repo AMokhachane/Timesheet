@@ -52,49 +52,49 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+{
+    try
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var appUser = new AppUser
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+            UserName = registerDto.Username,
+            Email = registerDto.Email
+        };
 
-                var appUser = new AppUser
-                {
-                    UserName = registerDto.Username,
-                    Email = registerDto.Email
-                };
+        var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
 
-                var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
+        if (!createdUser.Succeeded)
+            return StatusCode(500, createdUser.Errors);
 
-                if (createdUser.Succeeded)
-                {
-                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+        // Validate role and assign default if invalid or missing
+        var requestedRole = registerDto.Role?.Trim();
 
-                    if (roleResult.Succeeded)
-                    {
-                        return Ok(new NewUserDto
-                        {
-                            UserName = appUser.UserName,
-                            Email = appUser.Email,
-                            Token = _tokenService.CreateToken(appUser)
-                        });
-                    }
-                    else
-                    {
-                        return StatusCode(500, roleResult.Errors);
-                    }
-                }
-                else
-                {
-                    return StatusCode(500, createdUser.Errors);
-                }
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e);
-            }
+        string[] allowedRoles = new[] { "User", "Admin", "Supervisor" };
+        if (string.IsNullOrEmpty(requestedRole) || !allowedRoles.Contains(requestedRole))
+        {
+            requestedRole = "User"; // fallback to User role
         }
+
+        var roleResult = await _userManager.AddToRoleAsync(appUser, requestedRole);
+        if (!roleResult.Succeeded)
+            return StatusCode(500, roleResult.Errors);
+
+        return Ok(new NewUserDto
+        {
+            UserName = appUser.UserName,
+            Email = appUser.Email,
+            Token = _tokenService.CreateToken(appUser) // We'll update this to include roles next
+        });
+    }
+    catch (Exception e)
+    {
+        return StatusCode(500, e);
+    }
+}
 
         [HttpGet("users")]
         public async Task<IActionResult> GetAllUsers()
@@ -123,22 +123,28 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet("current-user")]
-        public async Task<ActionResult<UserDto>> GetCurrentUser()
-        {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            if (email == null)
-                return Unauthorized("User email not found in token.");
+[HttpGet("current-user")]
+public async Task<ActionResult<UserDto>> GetCurrentUser()
+{
+    var email = User.FindFirstValue(ClaimTypes.Email);
+    if (email == null)
+        return Unauthorized("User email not found in token.");
 
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
-                return Unauthorized("User not found.");
+    var user = await _userManager.FindByEmailAsync(email);
+    if (user == null)
+        return Unauthorized("User not found.");
 
-            return new UserDto
-            {
-                Username = user.UserName,
-                Email = user.Email
-            };
-        }
+    var roles = await _userManager.GetRolesAsync(user);
+
+    return new UserDto
+    {
+        Username = user.UserName,
+        Email = user.Email,
+        FirstName = user.FirstName,
+        LastName = user.LastName,
+        Role = roles.FirstOrDefault() // ✅ Get the first role (if any)
+    };
+}
+
     }
 }

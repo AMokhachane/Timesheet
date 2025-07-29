@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\timesheet\\api\\API.csproj": {}
+    "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\Timesheet\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\timesheet\\api\\API.csproj": {
+    "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\Timesheet\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\timesheet\\api\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\Timesheet\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\timesheet\\api\\API.csproj",
+        "projectPath": "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\Timesheet\\api\\API.csproj",
         "packagesPath": "C:\\Users\\Amand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\timesheet\\api\\obj\\",
+        "outputPath": "C:\\Users\\Amand\\OneDrive\\Documents\\Project\\Timesheet\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Amand\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -12,6 +12,7 @@ namespace API.Repository
     public class TimesheetRepository : ITimesheetRepository
     {
         private readonly ApplicationDBContext _context;
+
         public TimesheetRepository(ApplicationDBContext context)
         {
             _context = context;
@@ -26,12 +27,29 @@ namespace API.Repository
 
         public async Task<List<Timesheet>> GetAllAsync()
         {
-            return await _context.Timesheets.ToListAsync();
+            return await _context.Timesheets
+                .Include(t => t.Client)
+                .Include(t => t.User)
+                .OrderByDescending(t => t.UploadDate)
+                .ToListAsync();
         }
 
         public async Task<Timesheet?> GetByIdAsync(int id)
         {
-            return await _context.Timesheets.FindAsync(id);
+            return await _context.Timesheets
+                .Include(t => t.Client)
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+        public async Task<List<Timesheet>> GetByUserIdAsync(string userId)
+        {
+            return await _context.Timesheets
+                .Where(t => t.UserId == userId)
+                .Include(t => t.Client)
+                .Include(t => t.User)
+                .OrderByDescending(t => t.UploadDate)
+                .ToListAsync();
         }
     }
 }

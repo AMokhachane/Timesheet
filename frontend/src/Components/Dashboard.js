@@ -3,7 +3,7 @@ import styles from './Dashboard.module.css';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
-import { FaUsers, FaClipboardList, FaBirthdayCake, FaEye, FaChartLine, FaDollarSign } from 'react-icons/fa';
+import { FaUsers, FaChartLine, FaBirthdayCake } from 'react-icons/fa';
 import axios from 'axios';
 
 const data = [
@@ -49,6 +49,7 @@ const Dashboard = () => {
     <main className={styles.dashboardContainer}>
       <header className={styles.dashboardHeader}>
         <h1>Welcome, {displayName}</h1>
+        {user?.role && <p className={styles.roleText}>Role: {user.role}</p>}
         <p>Today: {today}</p>
       </header>
 
@@ -64,7 +65,7 @@ const Dashboard = () => {
           <p>Let’s wish a happy birthday to these clients:</p>
           <ul>
             {birthdays.map((name, i) => (
-              <li key={i}> {name}</li>
+              <li key={i}>{name}</li>
             ))}
           </ul>
         </div>

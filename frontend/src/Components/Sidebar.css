@@ -130,5 +130,22 @@
   margin-bottom: 20px;
  
 }
+.sidebar-logout-container {
+  margin-top: auto;
+  padding:-60px;
+}
+
+.logout-link {
+  color: red;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 
 

@@ -23,5 +23,9 @@ namespace API.Models
         public bool IsBillable { get; set; }
 
         public decimal TotalHours => Math.Round((decimal)(EndTime - StartTime).TotalHours, 2);
+
+        public string? UserId { get; set; }  // nullable foreign key
+
+        public AppUser? User { get; set; }   // navigation property nullable
     }
 }

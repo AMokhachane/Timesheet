@@ -6,6 +6,7 @@ import axios from 'axios';
 const Register = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('User'); // Default role
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
@@ -44,6 +45,7 @@ const Register = () => {
           username: fullName,
           email: email,
           password: password,
+          role: role,  // <-- Send selected role here
         }
       );
 
@@ -55,6 +57,7 @@ const Register = () => {
       // Clear form and redirect
       setFullName('');
       setEmail('');
+      setRole('User');  // reset to default role
       setPassword('');
       setConfirmPassword('');
       setError(null);
@@ -112,6 +115,20 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="role">Select Role</label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            >
+              <option value="User">User</option>
+              <option value="Admin">Admin</option>
+              <option value="Supervisor">Supervisor</option>
+            </select>
           </div>
 
           <div className="form-group">

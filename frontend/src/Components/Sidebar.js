@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import pic from './Images/pic.jpg';
 import axios from 'axios';
@@ -8,9 +8,10 @@ import log from './Images/log.png';
 
 export const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  const hideSidebarRoutes = ['/login', '/register'];
+  const hideSidebarRoutes = ['/', '/register'];
   const isVisible = !hideSidebarRoutes.includes(location.pathname);
 
   useEffect(() => {
@@ -28,18 +29,23 @@ export const Sidebar = () => {
         setUser(response.data);
       } catch (error) {
         console.error("Failed to fetch user", error);
-        setUser(null); // clear user if error occurs
+        setUser(null);
       }
     };
 
     fetchUser();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // clear token
+    navigate('/'); // redirect to login
+  };
+
   if (!isVisible) return null;
 
   return (
     <div className="sidebar">
-        <img src={log} alt="Log" className="Log-pic" />
+      <img src={log} alt="Log" className="Log-pic" />
       <nav className="sidebar-nav">
         <NavLink to="/dash" className="sidebar-link" activeclassname="active">
           <i className="fas fa-home icon-left"></i> Dashboard
@@ -59,6 +65,17 @@ export const Sidebar = () => {
         <NavLink to="/leave" className="sidebar-link" activeclassname="active">
           <i className="fas fa-comments icon-left"></i> Leave Request
         </NavLink> 
+        {user?.role === "Admin" && (
+  <NavLink to="/admin" className="sidebar-link" activeclassname="active">
+    <i className="fas fa-comments icon-left"></i> Timesheet Analysis
+  </NavLink>
+)}
+
+        <div className="sidebar-logout-container">
+  <div onClick={handleLogout} className="sidebar-link logout-link">
+    <i className="fas fa-sign-out-alt icon-left"></i> Logout
+  </div>
+</div>
       </nav>
 
       <div className="sidebar-profile-wrapper">

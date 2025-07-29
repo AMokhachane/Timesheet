@@ -8,5 +8,6 @@ namespace API.Interfaces
         Task<CommunicationLog?> GetByIdAsync(int id);
         Task<List<CommunicationLog>> GetByClientIdAsync(int clientId);
         Task CreateAsync(CommunicationLog log);
+        Task<List<CommunicationLog>> GetByUserIdAsync(string userId);
     }
 }

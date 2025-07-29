@@ -47,5 +47,16 @@ namespace API.Repository
             _context.CommunicationLogs.Add(communicationLog);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<CommunicationLog>> GetByUserIdAsync(string userId)
+{
+    return await _context.CommunicationLogs
+        .Where(log => log.UserId == userId)
+        .Include(log => log.Client)
+        .Include(log => log.User)
+        .OrderByDescending(log => log.UploadDate)
+        .ToListAsync();
+}
+
     }
 }

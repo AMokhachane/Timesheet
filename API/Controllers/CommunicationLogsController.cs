@@ -32,9 +32,7 @@ namespace API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var logs = await _logRepo.GetAllAsync();
-
             var logDtos = logs.Select(log => log.ToCommunicationLogDto());
-
             return Ok(logDtos);
         }
 
@@ -68,12 +66,22 @@ namespace API.Controllers
         public async Task<IActionResult> GetByClientId([FromRoute] int clientId)
         {
             var logs = await _logRepo.GetByClientIdAsync(clientId);
-
             if (logs == null || !logs.Any())
                 return NotFound($"No communication logs found for client ID: {clientId}");
 
             var logDtos = logs.Select(l => l.ToCommunicationLogDto());
+            return Ok(logDtos);
+        }
 
+        [Authorize]
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetByUserId([FromRoute] string userId)
+        {
+            var logs = await _logRepo.GetByUserIdAsync(userId);
+            if (logs == null || !logs.Any())
+                return NotFound($"No communication logs found for user ID: {userId}");
+
+            var logDtos = logs.Select(log => log.ToCommunicationLogDto());
             return Ok(logDtos);
         }
     }

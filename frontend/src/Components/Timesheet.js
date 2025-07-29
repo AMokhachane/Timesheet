@@ -5,6 +5,7 @@ import TimesheetCSS from './Timesheet.module.css';
 const Timesheet = () => {
   const [entries, setEntries] = useState([]);
   const [clients, setClients] = useState([]);
+  const [user, setUser] = useState(null);
   const [selectedClientId, setSelectedClientId] = useState('');
   const [projectName, setProjectName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
@@ -12,6 +13,7 @@ const Timesheet = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [isBillable, setIsBillable] = useState(false);
+
   const today = new Date().toISOString().split('T')[0];
   const token = localStorage.getItem('token');
 
@@ -36,20 +38,34 @@ const Timesheet = () => {
   const endOfWeek = getEndOfWeek();
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}/api/client`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setClients(res.data))
-      .catch((err) => console.error('Error fetching clients:', err));
+    const fetchData = async () => {
+      try {
+        if (!token) return;
 
-    axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}/api/timesheet`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        const mappedEntries = res.data.map((entry) => {
-          const clientName = clients.find((c) => c.id === entry.clientId)?.companyName || '';
+        // 1. Fetch current user
+        const userRes = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/account/current-user`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setUser(userRes.data);
+
+        // 2. Fetch clients
+        const clientsRes = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/client`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const freshClients = clientsRes.data;
+        setClients(freshClients);
+
+        // 3. Fetch timesheets for current user only
+        const timesheetsRes = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/timesheet/user/${userRes.data.id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        // Map timesheets with client names
+        const mappedEntries = timesheetsRes.data.map((entry) => {
+          const clientName = freshClients.find((c) => c.id === entry.clientId)?.companyName || '';
           const start = new Date(`1970-01-01T${formatTimeWithSeconds(entry.startTime)}`);
           const end = new Date(`1970-01-01T${formatTimeWithSeconds(entry.endTime)}`);
           let diffHours = (end - start) / (1000 * 60 * 60);
@@ -69,15 +85,18 @@ const Timesheet = () => {
         });
 
         setEntries(mappedEntries);
-      })
-      .catch((err) => console.error('Error fetching timesheets:', err));
-  }, [token, clients]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   const handleAddEntry = async (e) => {
     e.preventDefault();
 
-    if (!date || !selectedClientId || !projectName || !taskDescription || !startTime || !endTime)
-      return;
+    if (!date || !selectedClientId || !projectName || !taskDescription || !startTime || !endTime) return;
 
     const formattedStart = formatTimeWithSeconds(startTime);
     const formattedEnd = formatTimeWithSeconds(endTime);
@@ -106,8 +125,8 @@ const Timesheet = () => {
       const savedEntry = response.data;
       const clientName = clients.find((c) => c.id === savedEntry.clientId)?.companyName || '';
 
-      setEntries([
-        ...entries,
+      setEntries((prevEntries) => [
+        ...prevEntries,
         {
           id: savedEntry.id,
           date,
@@ -121,6 +140,7 @@ const Timesheet = () => {
         },
       ]);
 
+      // Reset form
       setSelectedClientId('');
       setProjectName('');
       setTaskDescription('');
@@ -134,6 +154,7 @@ const Timesheet = () => {
     }
   };
 
+  // Filter entries for current week
   const filteredEntries = entries.filter((entry) => {
     const entryDate = new Date(entry.date);
     return entryDate >= startOfWeek && entryDate <= endOfWeek;
@@ -157,7 +178,9 @@ const Timesheet = () => {
           onChange={(e) => setSelectedClientId(e.target.value)}
           required
         >
-          <option value="" disabled>Select Client</option>
+          <option value="" disabled>
+            Select Client
+          </option>
           {clients.map((client) => (
             <option key={client.id} value={client.id}>
               {client.companyName}

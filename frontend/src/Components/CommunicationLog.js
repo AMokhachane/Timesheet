@@ -1,80 +1,96 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './CommunicationLog.module.css';
 
 const CommunicationLog = () => {
   const [clients, setClients] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState('');
-  const [message, setMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [note, setNote] = useState('');
+  const [logs, setLogs] = useState([]); // communication notes for selected client
 
-  const API_URL = process.env.REACT_APP_API_URL;
-
+  // fetch clients on mount
   useEffect(() => {
-    axios.get(`${API_URL}/api/client`)
-      .then(response => setClients(response.data))
-      .catch(error => console.error('Error fetching clients:', error));
-  }, [API_URL]);
+    // TODO: replace with real API call
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/client`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    }).then(res => setClients(res.data))
+      .catch(err => console.error('Error fetching clients:', err));
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  // fetch logs when client changes
+  useEffect(() => {
+    if (!selectedClientId) {
+      setLogs([]);
+      return;
+    }
+    // TODO: replace with real API call
+    // Mock fetching logs for client
+    // axios.get(`/api/communicationlog/client/${selectedClientId}`, ...)
+    // For now, just clear or simulate empty
+    setLogs([]);
+  }, [selectedClientId]);
 
-    const data = {
-      clientId: parseInt(selectedClientId),
-      content: message,
-      loggedAt: new Date().toISOString()
+  const handleAddNote = () => {
+    if (!selectedClientId || !note.trim()) return alert('Select client and enter a note');
+
+    const newLog = {
+      id: Date.now(),
+      clientId: selectedClientId,
+      note: note.trim(),
+      timestamp: new Date().toISOString(),
+      username: 'You', // current logged in user (simplified here)
     };
 
-    try {
-      await axios.post(`${API_URL}/api/communicationlog`, data);
-      alert('Communication saved!');
-      setMessage('');
-      setSelectedClientId('');
-    } catch (error) {
-      console.error('Error posting communication:', error);
-      alert('Failed to save communication.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // TODO: POST to backend here
+
+    setLogs(prev => [newLog, ...prev]);
+    setNote('');
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.heading}>Communication Log</h2>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Client:</label>
-          <select
-            className={styles.select}
-            value={selectedClientId}
-            onChange={(e) => setSelectedClientId(e.target.value)}
-            required
-          >
-            <option value="">-- Select Client --</option>
-            {clients.map((client) => (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            ))}
-          </select>
-        </div>
+    <div className="p-6 max-w-xl mx-auto">
+      <h2 className="text-xl font-bold mb-4">Communication Log</h2>
 
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Notes:</label>
-          <textarea
-            className={styles.textarea}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Enter communication details here..."
-            required
-          ></textarea>
-        </div>
+      <select
+        className="border p-2 mb-4 w-full"
+        value={selectedClientId}
+        onChange={e => setSelectedClientId(e.target.value)}
+      >
+        <option value="">-- Select Client --</option>
+        {clients.map(client => (
+          <option key={client.id} value={client.id}>{client.companyName}</option>
+        ))}
+      </select>
 
-        <button className={styles.button} type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Saving...' : 'Save Communication'}
-        </button>
-      </form>
+      <textarea
+        className="border p-2 mb-4 w-full"
+        rows={4}
+        placeholder="Write your note here..."
+        value={note}
+        onChange={e => setNote(e.target.value)}
+      />
+
+      <button
+        className="bg-green-600 text-white px-4 py-2 rounded mb-6 hover:bg-green-700"
+        onClick={handleAddNote}
+      >
+        Add Note
+      </button>
+
+      <h3 className="font-semibold mb-2">Notes for selected client:</h3>
+      {logs.length === 0 ? (
+        <p>No notes yet.</p>
+      ) : (
+        <ul className="space-y-3 max-h-96 overflow-y-auto">
+          {logs.map(log => (
+            <li key={log.id} className="border p-3 rounded bg-gray-50">
+              <p>{log.note}</p>
+              <small className="text-gray-500">
+                {new Date(log.timestamp).toLocaleString()} - <b>{log.username}</b>
+              </small>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

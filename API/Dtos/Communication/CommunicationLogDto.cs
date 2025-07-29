@@ -13,5 +13,7 @@ namespace API.Dtos.Communication
         public string CommunicationMethod { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
         public bool FollowUpRequired { get; set; }
+        public string? Username { get; set; }
+
     }
 }

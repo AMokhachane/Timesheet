@@ -65,10 +65,15 @@ export const Sidebar = () => {
         <NavLink to="/leave" className="sidebar-link" activeclassname="active">
           <i className="fas fa-comments icon-left"></i> Leave Request
         </NavLink> 
-        {user?.role === "Admin" && (
-  <NavLink to="/admin" className="sidebar-link" activeclassname="active">
-    <i className="fas fa-comments icon-left"></i> Timesheet Analysis
-  </NavLink>
+{user?.role === "Admin" && (
+  <>
+    <NavLink to="/admin" className="sidebar-link" activeclassname="active">
+      <i className="fas fa-comments icon-left"></i> Timesheet Analysis
+    </NavLink>
+    <NavLink to="/communication" className="sidebar-link" activeclassname="active">
+      <i className="fas fa-chart-line icon-left"></i> Communication Log Analysis
+    </NavLink>
+  </>
 )}
 
         <div className="sidebar-logout-container">

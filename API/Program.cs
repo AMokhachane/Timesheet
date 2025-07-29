@@ -54,6 +54,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<ITimesheetRepository, TimesheetRepository>();
+builder.Services.AddScoped<ICommunicationLogRepository, CommunicationLogRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>

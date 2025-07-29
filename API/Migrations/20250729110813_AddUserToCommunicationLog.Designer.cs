@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250729110813_AddUserToCommunicationLog")]
+    partial class AddUserToCommunicationLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,13 +252,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "89a251f2-224a-47d1-b3a5-6c607913e687",
+                            Id = "951b6b58-1369-4f67-926c-60357258734e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "01165bef-d5ab-46e2-8a83-7f8539fd6ecb",
+                            Id = "3222094f-205e-4c34-a528-0761c8c4815e",
                             Name = "User",
                             NormalizedName = "USER"
                         });

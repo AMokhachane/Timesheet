@@ -12,6 +12,7 @@ import OvertimeSchedule from './Components/OvertimeSchedule';
 import LeaveRequest from './Components/LeaveRequest';
 import TimesheetAnalysis from './Components/TimesheetAnalysis';
 import CommunicationLogAnalysis from './Components/CommunicationLogAnalysis';
+import InvoiceGenerator from './Components/InvoiceGenerator';
 
 function AppContent() {
   const location = useLocation();
@@ -34,6 +35,7 @@ function AppContent() {
             <Route path="/leave" element={<LeaveRequest />} />
             <Route path="/admin" element={<TimesheetAnalysis />} />
             <Route path="/communication" element={<CommunicationLogAnalysis />} />
+            <Route path="/invoice" element={<InvoiceGenerator />} />
           </Routes>
         </div>
       </div>

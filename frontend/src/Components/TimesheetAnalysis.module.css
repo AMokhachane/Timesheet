@@ -1,0 +1,15 @@
+.chartContainer {
+  flex: 1.5;
+  background: #e3eefa;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.chartContainer h2 {
+  margin-bottom: 0.8rem;
+  color: #25a372;
+  font-size: 1.2rem;
+  text-align: center;
+}

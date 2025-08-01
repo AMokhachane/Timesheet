@@ -47,41 +47,50 @@ export const Sidebar = () => {
     <div className="sidebar">
       <img src={log} alt="Log" className="Log-pic" />
       <nav className="sidebar-nav">
-        <NavLink to="/dash" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-home icon-left"></i> Dashboard
-        </NavLink>
-        <NavLink to="/clients" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-users icon-left"></i> Clients
-        </NavLink>
-        <NavLink to="/timesheet" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-clock icon-left"></i> Timesheet
-        </NavLink>
-        <NavLink to="/communication-log" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-comments icon-left"></i> Communication Log
-        </NavLink>
-        <NavLink to="/overtime" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-comments icon-left"></i> Overtime Schedule
-        </NavLink>
-        <NavLink to="/leave" className="sidebar-link" activeclassname="active">
-          <i className="fas fa-comments icon-left"></i> Leave Request
-        </NavLink> 
-{user?.role === "Admin" && (
-  <>
-    <NavLink to="/admin" className="sidebar-link" activeclassname="active">
-      <i className="fas fa-comments icon-left"></i> Timesheet Analysis
-    </NavLink>
-    <NavLink to="/communication" className="sidebar-link" activeclassname="active">
-      <i className="fas fa-chart-line icon-left"></i> Communication Log Analysis
-    </NavLink>
-  </>
-)}
+  {user?.role === "Admin" ? (
+    <>
+      <NavLink to="/clients" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-users icon-left"></i> Clients
+      </NavLink>
+      <NavLink to="/admin" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-comments icon-left"></i> Timesheet Analysis
+      </NavLink>
+      <NavLink to="/communication" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-chart-line icon-left"></i> Communication Log Analysis
+      </NavLink>
+    </>
+  ) : (
+    <>
+      <NavLink to="/dash" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-home icon-left"></i> Dashboard
+      </NavLink>
+      <NavLink to="/clients" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-users icon-left"></i> Clients
+      </NavLink>
+      <NavLink to="/timesheet" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-clock icon-left"></i> Timesheet
+      </NavLink>
+      <NavLink to="/communication-log" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-comments icon-left"></i> Communication Log
+      </NavLink>
+      <NavLink to="/overtime" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-calendar-alt icon-left"></i> Overtime Schedule
+      </NavLink>
+      <NavLink to="/leave" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-plane icon-left"></i> Leave Request
+      </NavLink>
+      <NavLink to="/invoice" className="sidebar-link" activeclassname="active">
+        <i className="fas fa-plane icon-left"></i> Invoice Generator
+      </NavLink>
+    </>
+  )}
 
-        <div className="sidebar-logout-container">
-  <div onClick={handleLogout} className="sidebar-link logout-link">
-    <i className="fas fa-sign-out-alt icon-left"></i> Logout
+  <div className="sidebar-logout-container">
+    <div onClick={handleLogout} className="sidebar-link logout-link">
+      <i className="fas fa-sign-out-alt icon-left"></i> Logout
+    </div>
   </div>
-</div>
-      </nav>
+</nav>
 
       <div className="sidebar-profile-wrapper">
         <div className="sidebar-profile">

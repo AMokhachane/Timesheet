@@ -1,6 +1,6 @@
 .container {
   padding: 2rem;
-  background-color: #f3f4f6;
+  background-color: #e3eefa;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -8,10 +8,9 @@
 .card {
   max-width: 700px;
   margin: 0 auto;
-  background-color: white;
+  background-color: #e3eefa;
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .title {
